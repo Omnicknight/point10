@@ -10,16 +10,16 @@ const grades = {
     default: 50,
   };
 
-  const faleNames = {
-    Late: 'late',
-    Mistake: 'mistake',
-    Nice: 'nice',
+  const faleGrades = {
+    0: 0,
+    1: 1,
+    2: 2,
   };
 
   const falePrice = {
-    [faleNames.Late]: 0.95,
-    [faleNames.Mistake]: 0.9,
-    [faleNames.Nice]: 1,
+    [faleGrades[0]]: 1,
+    [faleGrades[1]]: 0.95,
+    [faleGrades[2]]: 0.9,
   };
   
   const gradeTax = {
@@ -28,7 +28,7 @@ const grades = {
     [grades.Senior]: 0.75,
   };
   
-  function User(name, language, grade = grades.Junior, mistakes = faleNames.Mistake) {
+  function User(name, language, grade = grades.Junior, mistakes = faleGrades[0]) {
     this.name = name;
     this.grade = grade;
     this.salary = 1000;
@@ -62,7 +62,8 @@ const grades = {
             console.log('Не хватает задач для поднятия уровня!');
         };
     };
-    this.fine = () => {
+    this.fine = (mist) => {
+        this.mistakes = mist;
         this.salary = this.salary * falePrice[this.mistakes];
     };
   };
@@ -92,14 +93,14 @@ const grades = {
   user.finishTask();
   user.finishTask();
   user.finishTask();
-  user.finishTask();
-  user.finishTask();
-  user.finishTask();
-  user.finishTask();
-  user.finishTask();
+  // user.finishTask();
+  // user.finishTask();
+  // user.finishTask();
+  // user.finishTask();
+  // user.finishTask();
 
   user.upgrade();
 
-  user.fine();
+  user.fine(2);
 
   console.log(user);
